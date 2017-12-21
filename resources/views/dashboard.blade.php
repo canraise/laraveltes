@@ -31,8 +31,8 @@
                             </td>
                             <td>
                                 <a href="" class="label label-success">Details</a>
-                                <a href="" class="label label-warning">Edit</a>
-                                <a href="" class="label label-danger" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                                <a href="{{ url('edit', $user->id) }}" class="label label-warning">Edit</a>
+<a href="{{ url('/dashboard', $user->id) }}" onclick="return confirm('Yakin mau hapus data ini sob?')" class="label label-danger">Delete</a>
                             </td>
                         </tr>
                         @endforeach

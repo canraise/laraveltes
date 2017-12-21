@@ -34,3 +34,11 @@ Route::get('article','MainController@article');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+
+//delete
+Route::get('/dashboard/{id}', 'MainController@destroy');
+//edit
+Route::get('/edit/{id}', 'MainController@edit');
+Route::post('/update/{id}', 'MainController@update');
+
