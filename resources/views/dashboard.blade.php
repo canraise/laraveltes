@@ -48,7 +48,7 @@
 @section('member')
 <div class="row">
 <div class="col-md-12 text-center">
-<h1>CRUD artikel/ komen member</h1>
+<h1>List artikel & komen member</h1>
 </div>
     <div class="row">
         <div class="panel-group col-md-10" id="accordion">

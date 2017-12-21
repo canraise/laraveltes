@@ -1,129 +1,73 @@
 @extends('layout/layout')
+<!DOCTYPE html>
+<html lang="en">
 <body>
+@section('guests')
+<div class="flex-center position-ref full-height">
+    @if (Route::has('login'))
+    <div class="top-right links">
+    @if (Auth::check())
+    <a href="{{ url('/dashboard') }}">Home</a>
+    @else
+    <a href="{{ url('/login') }}">Login</a>
+    <a href="{{ url('/register') }}">Register</a>
+    @endif
+    </div>
+    @endif
 
-{{$i=0}}
+    <div class="content">
+        <div class="title m-b-md">
+        <strong>Cobain</strong>
+        </div>
 
-@if($i==1){
-    @section('admin')
-<h1>TABEL MEMBER</h1>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <table class="table task-table">
-                    <!-- Table Headings -->
-                    <thead>
-                        <th width="10%">Id</th>
-                        <th width="45%">Namauser</th>
-                        <th width="25%">Email</th>
-                        <th width="35%">Action</th>
-                    </thead>
-                    <!-- Table Body -->
-                    <tbody>
-                    @foreach($data as $user)
-                        <tr>
-                            <td class="table-text">
-                                <div>{{$user->id}}</div>
-                            </td>
-                            <td class="table-text">
-                                <div>{{$user->name}}</div>
-                            </td>
-                                <td class="table-text">
-                                <div>{{$user->email}}</div>
-                            </td>
-                            <td>
-                                <a href="" class="label label-success">Details</a>
-                                <a href="{{ url('edit', $user->id) }}" class="label label-warning">Edit</a>
-<a href="{{ url('/dashboard', $user->id) }}" onclick="return confirm('Yakin mau hapus data ini sob?')" class="label label-danger">Delete</a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>    
-                </table>
-            </div>
-        </div>        
-@endsection
-}    
-
-@elseif($i==0){
-
-@section('member')
-<div class="row">
-<div class="col-md-12 text-center">
-<h1>CRUD artikel/ komen member</h1>
-</div>
     <div class="row">
-        <div class="panel-group col-md-10" id="accordion">
-                    @foreach($data as $user)
-            <div class="panel panel-default ">
-                <div data-toggle="collapse" data-parent="#accordion" href="#col{{$user->id}}" class="panel-heading">
-                    <h4>
-                    <strong>{{$user->name}}</strong>
-                    </h4>
-                </div>
-            <div id="col{{$user->id}}" class="panel-collapse collapse">
+        <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="panel-heading">
+                <h4>
+                <strong>Pendaftaran akun baru</strong>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
                 <div class="panel-body form-group-row">
-                    <div class="row container col-md-10 col-md-offset-1 text-justify mr-auto">
-                    {{$user->name}} konten
-                    <hr></div>
-                    <div class="row container col-md-8 col-md-offset-3 text-justify mr-auto">
-                    <h4>komentar {{$user->name}}:</h4>
-                    {{$user->email}}
-                    <hr></div>
-                    <div class="col-md-8 col-md-offset-3 text-justify mr-auto">
-                    komentar ini diganti jadi ajax
-<textarea class="col-md-12" name="" id="" cols="30" rows="10"></textarea>
-                    <input class="btn btn-success col-md-12"type="submit" value="Komentari"></p>                
-                    </div>
-                </div>
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('store') }}">
+                        {{ csrf_field() }}
+                        <div class="{{ $errors->has('judul') ? ' has-error' : '' }}">
+                                <input placeholder="judul"id="judul" type="text" class="form-control" name="judul" value="{{ ('judul') }}" required autofocus>
+                                @if ($errors->has('judul'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('judul') }}</strong>
+                                    </span>
+                                @endif
+                        </div>
+
+                        <div class="{{ $errors->has('konten') ? ' has-error' : '' }}">
+                                <input placeholder="konten" id="konten" type="konten" class="form-control" name="konten" value="{{ ('konten') }}" required>
+
+                                @if ($errors->has('konten'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('konten') }}</strong>
+                                    </span>
+                                @endif
+                        </div>
+                                <button type="submit" class="btn btn-primary col-md-12">
+                                    Register
+                                </button>
+                    </form>
             </div>
         </div>
- @endforeach
-                  
-    <br><a href="/"><strong>index(hapus pas kelar)</strong></a>
-    </div>
-
-    <div class="col-md-2">
-        <div class="row">
-        <h4>username</h4>
-        </div>
-    <a href="/article">Bikin Artikel</a><br>
-    <a href="#">logout</a><br>
-    </div>
+    </div>       
+    <br><a href="/dashboard"><strong>dashboard(hapus pas kelar)</strong></a>
+</div>
 </div>
 </div>
 @endsection
-
-}
-@else{
-
-<h1>Silahkan login dahulu atau buat akun <a href="/">Disini</a>
-</h1>
-}
-
-@endif
-@section('footer')
+@section('footer1')
+ <footer class="footer text-center col-md-12">
   <p>Posted by: Candra</p>
   <p>Contact information: <a href="mailto:canraise@gmail.com">
   canraise@gmail.com</a>.</p>
+</footer> 
 @endsection
-   
 </body>
-
-<!--
-    
-di content ada lihat user diklik  masuk ke list artikel diklik ada komentar+form isi komentar dan submit
-
-
-
-
-//Kalo ud kelar tambah validasi sama autentikasi dan autorisasi
-//Validasi filter isian form
-//Autentikasi registrasi
-//Edit komen hanya komen user bersangkutan
-
-
-//Relasi databasenya diatur broh
-// bikin 3 tabel, tusert tartikel tkomen
-//Table user 1-N table artikel
-//Table Artikel 1-N table komen
-
--->
+</html>		

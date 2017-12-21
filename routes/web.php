@@ -25,6 +25,7 @@ Route::get('/', function () {
 
 //ini route pake parent layout.blade
 Route::get('tes','MainController@tes');
+Route::get('tes2','MainController@tes2');
 Route::get('dashboard','MainController@dashboard');
 Route::get('article','MainController@article');
 

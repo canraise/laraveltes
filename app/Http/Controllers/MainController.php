@@ -6,11 +6,17 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Artikel;
 //nanti dihapus kalo udah production
 class MainController extends Controller{
+    // public function tes(){
+    //     $data = User::all();
+    //     return View('tes')->with('data', $data);
+    // }
     public function tes(){
         $data = User::all();
-        return View('tes')->with('data', $data);
+        $artikelnya = Artikel::all();
+        return View('tes',['data'=>$data,'artikelnya'=>$artikelnya]);
     }
     public function dashboard(){
         $data = User::all();
