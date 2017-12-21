@@ -1,7 +1,7 @@
 @extends('layout/layout')
 <body>
 
-{{$i=1}}
+{{$i=0}}
 
 @if($i==1){
     @section('admin')
@@ -50,36 +50,34 @@
 <div class="col-md-12 text-center">
 <h1>CRUD artikel/ komen member</h1>
 </div>
-
     <div class="row">
         <div class="panel-group col-md-10" id="accordion">
+                    @foreach($data as $user)
             <div class="panel panel-default ">
-                <div data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="panel-heading">
+                <div data-toggle="collapse" data-parent="#accordion" href="#col{{$user->id}}" class="panel-heading">
                     <h4>
-                    <strong>Judul Artikel 1</strong>
+                    <strong>Judul artikel {{$user->id}}</strong>
                     </h4>
                 </div>
-            <div id="collapseOne" class="panel-collapse collapse">
+            <div id="col{{$user->id}}" class="panel-collapse collapse">
                 <div class="panel-body form-group-row">
                     <div class="row container col-md-10 col-md-offset-1 text-justify mr-auto">
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa.
-Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim.
-Fusce est. Vivamus a tellus.
-Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede.
-Mauris et orci. Aenean nec lorem.
-In porttitor. Donec laoreet nonummy augue.
-Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend.
-Ut nonummy. Fusce aliquet pede non pede.
+                    konten artikel {{$user->name}} 
+                    Mauris et orci. Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.
+Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy. Fusce aliquet pede non pede.
+Suspendisse dapibus lorem pellentesque magna. Integer nulla. Donec blandit feugiat ligula. Donec hendrerit, felis et imperdiet euismod, purus ipsum pretium metus, in lacinia nulla nisl eget sapien.
+Donec ut est in lectus consequat consequat. Etiam eget dui. Aliquam erat volutpat. Sed at lorem in nunc porta tristique.
+Proin nec augue. Quisque aliquam tempor magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc ac magna.
+Maecenas odio dolor, vulputate vel, auctor ac, accumsan id, felis. Pellentesque cursus sagittis felis. Pellentesque porttitor, velit lacinia egestas auctor, diam eros tempus arcu, nec vulputate augue magna vel risus. Cras non magna vel ante adipiscing rhoncus.
+Vivamus a mi. Morbi neque. Aliquam erat volutpat. Integer ultrices lobortis eros.
                     <hr></div>
+                    @foreach($data as $user)
                     <div class="row container col-md-8 col-md-offset-3 text-justify mr-auto">
-                    <h4>komentar namauser:</h4>
-Maecenas odio dolor, vulputate vel, auctor ac, accumsan id, felis. Pellentesque cursus sagittis felis.
-Pellentesque porttitor, velit lacinia egestas auctor, diam eros tempus arcu, nec vulputate augue magna vel risus. Cras non magna vel ante adipiscing rhoncus.
-Vivamus a mi. Morbi neque.
-Aliquam erat volutpat. Integer ultrices lobortis eros.
-Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin semper, ante vitae sollicitudin posuere, metus quam iaculis nibh, vitae scelerisque nunc massa eget pede.
-Sed velit urna, interdum vel, ultricies vel, faucibus at, quam. Donec elit est, consectetuer eget, consequat quis, tempus quis, wisi.
-                    <hr></div>
+                    <h4>komentar {{$user->email}}:</h4>
+isi komentar {{$user->id}}<br>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede.                    
+                    <hr>
+                    </div>
+                    @endforeach
                     <div class="col-md-8 col-md-offset-3 text-justify mr-auto">
                     komentar ini diganti jadi ajax
 <textarea class="col-md-12" name="" id="" cols="30" rows="10"></textarea>
@@ -88,45 +86,7 @@ Sed velit urna, interdum vel, ultricies vel, faucibus at, quam. Donec elit est, 
                 </div>
             </div>
         </div>
-        <div class="panel panel-default">
-            <div data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="panel-heading">
-                <h4>
-                <strong>Judul artikel 2</strong>
-                </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse">
-                <div class="panel-body form-group-row">
-                    <div class="row container col-md-10 col-md-offset-1 text-justify mr-auto">
-Suspendisse dapibus lorem pellentesque magna. Integer nulla.
-Donec blandit feugiat ligula. Donec hendrerit, felis et imperdiet euismod, purus ipsum pretium metus, in lacinia nulla nisl eget sapien.
-Donec ut est in lectus consequat consequat. Etiam eget dui.
-Aliquam erat volutpat. Sed at lorem in nunc porta tristique.
-Proin nec augue. Quisque aliquam tempor magna.
-Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc ac magna.
-Maecenas odio dolor, vulputate vel, auctor ac, accumsan id, felis. Pellentesque cursus sagittis felis.
-Pellentesque porttitor, velit lacinia egestas auctor, diam eros tempus arcu, nec vulputate augue magna vel risus. Cras non magna vel ante adipiscing rhoncus.
-Vivamus a mi. Morbi neque.
-Aliquam erat volutpat. Integer ultrices lobortis eros.
-Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin semper, ante vitae sollicitudin posuere, metus quam iaculis nibh, vitae scelerisque nunc massa eget pede.
-Sed velit urna, interdum vel, ultricies vel, faucibus at, quam. Donec elit est, consectetuer eget, consequat quis, tempus quis, wisi.
-                    <hr></div>
-                    <div class="row container col-md-8 col-md-offset-3 text-justify mr-auto">
-                    <h4>komentar namauser:</h4>
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa.
-Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim.
-Fusce est. Vivamus a tellus.
-Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede.
-Mauris et orci. Aenean nec lorem.
-In porttitor. Donec laoreet nonummy augue.
-                    <hr></div>
-                    <div class="col-md-8 col-md-offset-3 text-justify mr-auto">
-                    komentar ini diganti jadi ajax
-<textarea class="col-md-12" name="" id="" cols="30" rows="10"></textarea>
-                    <input class="btn btn-success col-md-12"type="submit" value="Komentari">                
-                    </div>
-                </div>
-            </div> 
-        </div>
+ @endforeach
                   
     <br><a href="/"><strong>index(hapus pas kelar)</strong></a>
     </div>

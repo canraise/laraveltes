@@ -19,9 +19,9 @@
     <div class="row">
         <div class="panel-group" id="accordion">
             <div class="panel panel-default ">
-            <div data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="panel-heading">
+            <div data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="text-center panel-heading">
                 <h4>
-                <strong>Update</strong>
+                <strong>Update User</strong>
                 </h4>
             </div>
             <div id="collapseOne" class="panel-collapse">

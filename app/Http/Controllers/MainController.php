@@ -17,7 +17,8 @@ class MainController extends Controller{
         return View('dashboard')->with('data', $data);
     }
     public function article(){
-        return View('article');
+        $data = User::all();
+        return View('article')->with('data', $data);
     }
 
 
