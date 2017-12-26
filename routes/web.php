@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,11 +24,10 @@ Route::get('/', function () {
 // });
 
 //ini route pake parent layout.blade
-Route::get('tes','MainController@tes');
-Route::get('tes2','MainController@tes2');
-Route::get('dashboard','MainController@dashboard');
-Route::get('article','MainController@article');
-
+Route::get('tes','HomeController@tes');
+Route::get('tes2','HomeController@tes2');
+Route::get('dashboard','HomeController@dashboard');
+Route::resource('article', 'HomeController');
 
 
 //login signup
@@ -38,8 +37,11 @@ Route::get('/home', 'HomeController@index');
 
 
 //delete
-Route::get('/dashboard/{id}', 'MainController@destroy');
+Route::get('/home/{id}', 'HomeController@destroy');
 //edit
-Route::get('/edit/{id}', 'MainController@edit');
-Route::post('/update/{id}', 'MainController@update');
+Route::get('/edit/{id}', 'HomeController@edit');
+Route::post('/update/{id}', 'HomeController@update');
 
+//ajax
+ Route::get('manage-item-ajax', 'ItemAjaxController@manageItemAjax');
+ Route::resource('item-ajax', 'ItemAjaxController');

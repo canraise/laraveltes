@@ -1,73 +1,229 @@
-@extends('layout/layout')
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
+
+<head>
+	<title>Laravel Ajax CRUD Example</title>
+
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css">
+
+</head>
+@extends('layouts.app')
 <body>
-@section('guests')
-<div class="flex-center position-ref full-height">
-    @if (Route::has('login'))
-    <div class="top-right links">
-    @if (Auth::check())
-    <a href="{{ url('/dashboard') }}">Home</a>
-    @else
-    <a href="{{ url('/login') }}">Login</a>
-    <a href="{{ url('/register') }}">Register</a>
-    @endif
-    </div>
-    @endif
 
-    <div class="content">
-        <div class="title m-b-md">
-        <strong>Cobain</strong>
-        </div>
-
+@section('content')
+<div class="container">
     <div class="row">
-        <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-            <div data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="panel-heading">
-                <h4>
-                <strong>Pendaftaran akun baru</strong>
-                </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse">
-                <div class="panel-body form-group-row">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('store') }}">
-                        {{ csrf_field() }}
-                        <div class="{{ $errors->has('judul') ? ' has-error' : '' }}">
-                                <input placeholder="judul"id="judul" type="text" class="form-control" name="judul" value="{{ ('judul') }}" required autofocus>
-                                @if ($errors->has('judul'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('judul') }}</strong>
-                                    </span>
-                                @endif
-                        </div>
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h1>Post Article</h1></div>
+                        <div class="panel-body">
+s
 
-                        <div class="{{ $errors->has('konten') ? ' has-error' : '' }}">
-                                <input placeholder="konten" id="konten" type="konten" class="form-control" name="konten" value="{{ ('konten') }}" required>
+		    <div class="col-lg-12 margin-tb">					
 
-                                @if ($errors->has('konten'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('konten') }}</strong>
-                                    </span>
-                                @endif
+		        <div class="pull-left">
+
+		            <h2>Laravel Ajax CRUD Example</h2>
+
+		        </div>
+
+		        <div class="pull-right">
+
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#create-item">
+
+					  Create Item
+
+				</button>
+
+		        </div>
+
+		    </div>
+
+		</div>
+
+
+		<table class="table table-bordered">
+
+			<thead>
+
+			    <tr>
+
+				<th>Title</th>
+
+				<th>Description</th>
+
+				<th width="200px">Action</th>
+
+			    </tr>
+
+			</thead>
+
+			<tbody>
+
+			</tbody>
+
+		</table>
+
+
+		<ul id="pagination" class="pagination-sm"></ul>
+
+
+	    <!-- Create Item Modal -->
+
+		<div class="modal fade" id="create-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+		  <div class="modal-dialog" role="document">
+
+		    <div class="modal-content">
+
+		      <div class="modal-header">
+
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+		        <h4 class="modal-title" id="myModalLabel">Create Item</h4>
+
+		      </div>
+
+		      <div class="modal-body">
+
+
+		      		<form data-toggle="validator" action="{{ route('item-ajax.store') }}" method="POST">
+
+		      			<div class="form-group">
+
+							<label class="control-label" for="title">Title:</label>
+
+							<input type="text" name="title" class="form-control" data-error="Please enter title." required />
+
+							<div class="help-block with-errors"></div>
+
+						</div>
+
+						<div class="form-group">
+
+							<label class="control-label" for="title">Description:</label>
+
+							<textarea name="description" class="form-control" data-error="Please enter description." required></textarea>
+
+							<div class="help-block with-errors"></div>
+
+						</div>
+
+						<div class="form-group">
+
+							<button type="submit" class="btn crud-submit btn-success">Submit</button>
+
+						</div>
+
+		      		</form>
+
+		      </div>
+
+		    </div>
+
+		  </div>
+
+		</div>
+
+
+		<!-- Edit Item Modal -->
+
+		<div class="modal fade" id="edit-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+		  <div class="modal-dialog" role="document">
+
+		    <div class="modal-content">
+
+		      <div class="modal-header">
+
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+		        <h4 class="modal-title" id="myModalLabel">Edit Item</h4>
+
+		      </div>
+
+		      <div class="modal-body">
+
+
+		      		<form data-toggle="validator" action="/item-ajax/14" method="put">
+
+		      			<div class="form-group">
+
+							<label class="control-label" for="title">Title:</label>
+
+							<input type="text" name="title" class="form-control" data-error="Please enter title." required />
+
+							<div class="help-block with-errors"></div>
+
+						</div>
+
+						<div class="form-group">
+
+							<label class="control-label" for="title">Description:</label>
+
+							<textarea name="description" class="form-control" data-error="Please enter description." required></textarea>
+
+							<div class="help-block with-errors"></div>
+
+						</div>
+
+						<div class="form-group">
+
+							<button type="submit" class="btn btn-success crud-submit-edit">Submit</button>
+
+						</div>
+
+		      		</form>
+
+
+		      </div>
+
+		    </div>
+
+		  </div>
+
+		</div>
+
+
+	</div>
+
+
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.3.1/jquery.twbsPagination.min.js"></script>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
+
+
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+        <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+
+
+        <script type="text/javascript">
+
+    	   var url = "<?php echo route('item-ajax.index')?>";
+
+        </script>
+
+        <script src="/js/item-ajax.js"></script> 
+
+
+s
+
                         </div>
-                                <button type="submit" class="btn btn-primary col-md-12">
-                                    Register
-                                </button>
-                    </form>
+                </div>
             </div>
         </div>
-    </div>       
-    <br><a href="/dashboard"><strong>dashboard(hapus pas kelar)</strong></a>
+    </div>
 </div>
-</div>
-</div>
-@endsection
-@section('footer1')
- <footer class="footer text-center col-md-12">
-  <p>Posted by: Candra</p>
-  <p>Contact information: <a href="mailto:canraise@gmail.com">
-  canraise@gmail.com</a>.</p>
-</footer> 
 @endsection
 </body>
-</html>		
+
+</html>

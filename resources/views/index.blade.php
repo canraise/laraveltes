@@ -1,4 +1,4 @@
-@extends('layout/layout')
+@extends('layouts/layout')
 <!DOCTYPE html>
 <html lang="en">
 <body>
@@ -7,10 +7,8 @@
     @if (Route::has('login'))
     <div class="top-right links">
     @if (Auth::check())
-    <a href="{{ url('/dashboard') }}">Home</a>
+    <a href="{{ url('/home') }}">Home</a>
     @else
-    <a href="{{ url('/login') }}">Login</a>
-    <a href="{{ url('/register') }}">Register</a>
     @endif
     </div>
     @endif
@@ -100,14 +98,14 @@
             </div>
         </div>
     </div>       
-    <br><a href="/dashboard"><strong>dashboard(hapus pas kelar)</strong></a>
+    <br><a href="/home">
 </div>
 </div>
 </div>
 @endsection
 @section('footer1')
  <footer class="footer text-center col-md-12">
-  <p>Posted by: Candra</p>
+  <p>Posted by: Candra 2017</p>
   <p>Contact information: <a href="mailto:canraise@gmail.com">
   canraise@gmail.com</a>.</p>
 </footer> 

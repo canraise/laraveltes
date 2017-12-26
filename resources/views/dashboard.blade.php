@@ -88,7 +88,7 @@ isi komentar {{$user->id}}<br>Lorem ipsum dolor sit amet, consectetuer adipiscin
         </div>
  @endforeach
                   
-    <br><a href="/"><strong>index(hapus pas kelar)</strong></a>
+    <br>
     </div>
 
     <div class="col-md-2">
