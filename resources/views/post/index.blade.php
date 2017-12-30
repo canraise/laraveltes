@@ -1,11 +1,11 @@
-@extends('layouts.app')
-
+@extends('layouts/app')
 @section('content')
+<div>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                        @if(Auth::user()->name=='admin')
+                @if(Auth::user()->name=='admin')
                 <div class="panel-heading"><h1>Tabel Member</h1></div>
                 @else
                 <div class="panel-heading"><h1>List Semua Artikel</h1></div>
@@ -39,7 +39,7 @@
                             @if($user->name=='admin')
                             @else
                                 <a href="{{ url('edit', $user->id) }}" class="label label-warning">Edit</a>
-<a href="{{ url('/home', $user->id) }}" onclick="return confirm('Yakin mau cobain hapus data ini?')" class="label label-danger">Delete</a>
+<a href="{{ url('/post', $user->id) }}" onclick="return confirm('Yakin mau cobain hapus data ini?')" class="label label-danger">Delete</a>
                             @endif
                             </td>
                         </tr>
@@ -49,53 +49,63 @@
             </div>
         </div>        
                        </div>
+
                         @else
                         <div class="panel-body">
     <div class="row">
         <div class="panel-group col-md-12" id="accordion">
-                    @foreach($data as $user)
+                    @foreach($posts as $post)
             <div class="panel panel-default ">
-                <div data-toggle="collapse" data-parent="#accordion" href="#col{{$user->id}}" class="panel-heading">
+                <div data-toggle="collapse" data-parent="#accordion" href="#col{{$post->id}}" class="panel-heading">
                     <h4>
-                    <strong>Judul artikel {{$user->name}}</strong>
+                    <strong>{{$post->title}}</strong>
+                    <small>{{$post->updated_at->diffforHumans()}}</small>
+                    <small>
+                    <div class="pull-right">
+                    <strong>({{$post->comments->count()}}) Komentar</strong>
+                    </div>
+                    </small>                                        
                     </h4>
                 </div>
-            <div id="col{{$user->id}}" class="panel-collapse collapse">
+            <div id="col{{$post->id}}" class="panel-collapse collapse">
                 <div class="panel-body form-group-row">
                     <div class="row container col-md-10 col-md-offset-1 text-justify mr-auto">
-                    konten artikel {{$user->name}} 
-                    vulputate vel, auctor ac, accumsan id, felis. Pellentesque cursus sagittis felis. Pellentesque porttitor, velit lacinia egestas auctor, diam eros tempus arcu, nec vulputate augue magna vel risus. Cras non magna vel ante adipiscing rhoncus.
-Vivamus a mi. Morbi neque. Aliquam erat volutpat. Integer ultrices lobortis eros.
-                    <hr></div>
-                    @foreach($artikelnya as $artikel)
-                    <div class="row container col-md-8 col-md-offset-3 text-justify mr-auto">
-                    <h4>komentar {{$artikel->judul}}:</h4>
-isi komentar {{$artikel->konten}}<br>
-                    <hr>
+                    konten artikel {{str_limit($post->content, 400,' ...')}} 
+                    <small><br>Kategori : {{$post->category->name}}</small>
+                    <br>
+                                        <div class="pull-right">
+                                        <form action="{{route('post.destroy',$post)}}" method="post">
+                                        {{csrf_field()}}
+                                        {{method_field('DELETE')}}
+                    <button type="submit" class="btn btn-danger">
+                    Hapus
+                    </button>
+                    </form>
                     </div>
-                    @endforeach
+                                        <div class="pull-right">
+                                        <a href="{{route('post.edit',$post)}}" class="btn btn-warning">Edit</a>
+                                        </div>
+                                        <div class="pull-right">
+                                        <a href="{{route('post.show',$post)}}" class="btn btn-info">Selengkapnya</a>
+                                        </div>
+
+                <br>
+                    </div>
                     <div class="col-md-8 col-md-offset-3 text-justify mr-auto">
-<!--
-                    komentar ini diganti jadi ajax
-<textarea class="col-md-12" name="" id="" cols="30" rows="10"></textarea>
--->
-				<button type="button" class="btn btn-success col-md-12" data-toggle="modal" data-target="#create-item">
-
-					  Komentari
-
-				</button>
-
                     </div>
                 </div>
             </div>
         </div>
  @endforeach
                   
-    <br><a href="/"><strong>index(hapus pas kelar)</strong></a>
     </div>
                        </div>
-                        @endif
+                  {!!$posts->render()!!}
+@endif
             </div>
         </div>
+    </div>
+</div>
 </div>
 @endsection
+

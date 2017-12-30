@@ -1,0 +1,8 @@
+[v]user 
+    email,pass
+[]category
+    id,name,slug
+[]post
+    id, category_id, title, content
+[]comment
+    id, post_id, user_id, message

@@ -1,5 +1,5 @@
 <?php
-use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,36 +12,32 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('welcome');
 });
-
-// Route::get('/tes', function () {
-//     return view('tes');
-//     //login
-// });
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// });
-
-//ini route pake parent layout.blade
-Route::get('tes','HomeController@tes');
-Route::get('tes2','HomeController@tes2');
-Route::get('dashboard','HomeController@dashboard');
-Route::resource('article', 'HomeController');
-
-
-//login signup
+//auth
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+//index
+
+//middleware auth
+Route::group(['middleware' => ['auth']], function() {
+Route::get('/post', 'PostController@index')->name('post.index');
+//create post
+Route::get('/post/create', 'PostController@create')->name('post.create');
+//store post
+Route::post('/post/create', 'PostController@store')->name('post.store');
+//edit post
+Route::get('/post/{post}/edit', 'PostController@edit')->name('post.edit');
+//patch untuk uodate
+Route::patch('/post/{post}/edit', 'PostController@update')->name('post.update');
+//delete post
+Route::delete('/post/{post}/delete', 'PostController@destroy')->name('post.destroy');
+//detail selengkapnya
+Route::get('/post/{post}', 'PostController@show')->name('post.show');
+//post komentar
+Route::post('/post/{post}/comment', 'PostCommentController@store')->name('post.comment.store');
 
 
-//delete
-Route::get('/home/{id}', 'HomeController@destroy');
-//edit
-Route::get('/edit/{id}', 'HomeController@edit');
-Route::post('/update/{id}', 'HomeController@update');
+});
 
-//ajax
- Route::get('manage-item-ajax', 'ItemAjaxController@manageItemAjax');
- Route::resource('item-ajax', 'ItemAjaxController');

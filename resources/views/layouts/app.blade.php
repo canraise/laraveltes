@@ -12,7 +12,9 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
-
+<style>
+.nav,.navbar,.footer{border:none;}
+</style>
     <!-- Scripts -->
     <script>
         window.Cobain = <?php echo json_encode([
@@ -35,7 +37,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/home') }}">
+                    <a class="navbar-brand" href="{{ url('/post') }}">
                         {{ config('app.name', 'Cobain') }}
                     </a>
                 </div>
@@ -50,7 +52,10 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                        @elseif(Auth::user()->name=='admin')
+                            <li><a href="{{ url('/login') }}">Login</a></li>
+                            <li><a href="{{ url('/register') }}">Register</a></li>
+                        @else
+                            <li><a href="{{ url('/post/create') }}">Write a Blog</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -67,29 +72,6 @@
                                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
-                                    </li>
-                                </ul>
-                            </li>
-                            @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ url('/logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                    <li>
-                                <a href="tes" role="button">
-                                    Bikin Blog
-                                </a>
                                     </li>
                                 </ul>
                             </li>
@@ -99,21 +81,23 @@
             </div>
         </nav>
 
+        @include('layouts.partials._alerts')
         @yield('content')
     </div>
     </div>
 @section('footer')
-<hr>
-  <p>Posted by: Candra 2017</p>
-  <p>Contact information: <a href="mailto:canraise@gmail.com">
-  canraise@gmail.com</a>.</p>
+<div id="footer">
+<div class="container">
+<h4 class="text-muted credit">
+<span style="text-align:left;float:left">&copy; 2017 <a href="{{url('/post')}}">Cobain Blog</a></span>
+<span class="hidden-phone" style="text-align:right;float:right">Powered by: <a href="laravel.com">Laravel 5.3</a></span>
 <br>
-</footer> 
+<span style="text-align:left;float:left">Created by <a href="{{url('/post')}}">Candra</a></span>
+</h4>
+</div>
+</div>                    
 @endsection
- <footer class="navbar-default text-center">
-@yield('footer')
- </footer>
-
+        @yield('footer')
     <!-- Scripts -->
     <script src="/js/app.js"></script>
 </body>
