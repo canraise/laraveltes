@@ -38,7 +38,7 @@
                             <td>
                             @if($user->name=='admin')
                             @else
-                                <a href="{{ url('edit', $user->id) }}" class="label label-warning">Edit</a>
+                        <a href="{{ url('edit', $user->id) }}" class="label label-warning">Edit</a>
 <a href="{{ url('/post', $user->id) }}" onclick="return confirm('Yakin mau cobain hapus data ini?')" class="label label-danger">Delete</a>
                             @endif
                             </td>
@@ -59,6 +59,7 @@
                 <div data-toggle="collapse" data-parent="#accordion" href="#col{{$post->id}}" class="panel-heading">
                     <h4>
                     <strong>{{$post->title}}</strong>
+                    <em> by {{$post->user->name}} </em>
                     <small>{{$post->updated_at->diffforHumans()}}</small>
                     <small>
                     <div class="pull-right">
@@ -73,6 +74,7 @@
                     konten artikel {{str_limit($post->content, 400,' ...')}} 
                     <small><br>Kategori : {{$post->category->name}}</small>
                     <br>
+                        @if(Auth::user()->name==$post->user->name)
                                         <div class="pull-right">
                                         <form action="{{route('post.destroy',$post)}}" method="post">
                                         {{csrf_field()}}
@@ -89,6 +91,11 @@
                                         <a href="{{route('post.show',$post)}}" class="btn btn-info">Selengkapnya</a>
                                         </div>
 
+@else
+                                        <div class="pull-right">
+                                        <a href="{{route('post.show',$post)}}" class="btn btn-info">Selengkapnya</a>
+                                        </div>
+@endif
                 <br>
                     </div>
                     <div class="col-md-8 col-md-offset-3 text-justify mr-auto">

@@ -3,25 +3,23 @@
 <div>
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">List Artikel</div>
+        <div class="col-md-10 col-md-offset-1">
                         <div class="panel-body">
     <div class="row">
         <div class="panel-group col-md-12">
 
             <div class="panel panel-default ">
-                <div href="#col{{$post->id}}" class="panel-heading">
+                <div href="#col{{$post->id}}" class="panel-heading text-wrap-auto">
                     <h4>
-                    <strong>{{$post->title}}</strong>
-                    <small>{{$post->created_at->diffforHumans()}}</small>
-                    <br>
+<span style="text-align:left;float:left">{{$post->title}} <small><em>{{$post->created_at}}</em> <br>Updated : {{$post->updated_at->diffforHumans()}}</small></span>
+<span class="hidden-phone" style="text-align:right;float:right"> <small>  Author : </small><em>{{$post->user->name}}</em></span>
+<br><br>                    
                     </h4>
                 </div>
             <div id="col{{$post->id}}" class="panel-collapse ">
                 <div class="panel-body form-group-row">
                     <div class="row container col-md-10 col-md-offset-1 text-justify mr-auto">
-                    konten artikel {{$post->content}} 
+                    {{$post->content}} 
                     <small><br>Kategori : {{$post->category->name}}</small>
                     <br>
 
@@ -30,7 +28,7 @@
                     <div class="row container col-md-8 col-md-offset-3 text-justify mr-auto">
 @foreach($post->comments()->get() as $comment)
                     <h4>Komentar <em><a href="#">{{$comment->user->name}}</a></em>:</h4>
-isi komentar {{$comment->message}}<br>
+{{$comment->message}}<br>
 <small>{{$comment->created_at}}</small>
 @endforeach
                     <hr>
@@ -44,9 +42,16 @@ isi komentar {{$comment->message}}<br>
             </span>
             @endif
 </div>
+                        @if(Auth::user()->name==$post->user->name)
 <div class="col-md-2">
-<input type="submit" value="komentari" class="btn btn-primary pull-right" style="height:80px">
-</div></form>
+<input type="submit" value="Balas komentar" class="btn btn-primary pull-right" style="height:80px">
+</div>
+@else
+<div class="col-md-2">
+<input type="submit" value="Cobain Komentari" class="btn btn-primary pull-right" style="height:80px">
+</div>
+
+@endif</form>
                     </div>
 
                 </div>
@@ -54,7 +59,6 @@ isi komentar {{$comment->message}}<br>
         </div>
 
                   
-    </div>
                        </div>
             </div>
         </div>

@@ -94,6 +94,7 @@
 <br>
 <span style="text-align:left;float:left">Created by <a href="{{url('/post')}}">Candra</a></span>
 </h4>
+<br>
 </div>
 </div>                    
 @endsection
