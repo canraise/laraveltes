@@ -14,7 +14,7 @@
             <label for="">Title</label>
             <input type="text" class="form-control" name="title" placeholder="Post title" value="{{$post->title}}">
         </div>
-
+            <input type="hidden" class="form-control" name="user_id" value="{{str_slug(Auth::user()->id)}}">
         <div class="form-group">
             <label for="">Kategori</label>
             <select name="category_id" class="form-control">
