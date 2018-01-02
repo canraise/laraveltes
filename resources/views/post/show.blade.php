@@ -12,7 +12,7 @@
                 <div href="#col{{$post->id}}" class="panel-heading text-wrap-auto">
                     <h4>
 <span style="text-align:left;float:left">{{$post->title}} <small><em>{{$post->created_at}}</em> <br>Updated : {{$post->updated_at->diffforHumans()}}</small></span>
-<span class="hidden-phone" style="text-align:right;float:right"> <small>  Author : </small><em>{{$post->user->name}}</em></span>
+<span class="hidden-phone" style="text-align:right;float:right"> <small>  Author : </small><a href="#"><em>{{$post->user->name}}</em></a></span>
 <br><br>                    
                     </h4>
                 </div>

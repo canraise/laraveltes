@@ -57,16 +57,16 @@
                     @foreach($posts as $post)
             <div class="panel panel-default ">
                 <div data-toggle="collapse" data-parent="#accordion" href="#col{{$post->id}}" class="panel-heading">
-                    <h4>
+                    <h4 class="text-wrap-auto">
                     <strong>{{$post->title}}</strong>
                     <em> by {{$post->user->name}} </em>
-                    <small>{{$post->updated_at->diffforHumans()}}</small>
-                    <small>
-                    <div class="pull-right">
-                    <strong>({{$post->comments->count()}}) Komentar</strong>
-                    </div>
-                    </small>                                        
+                    <small>latest update {{$post->updated_at}}<br>
+                    <strong class="pull-right">({{$post->comments->count()}}) Komentar<br></strong>
+
+</small>
+
                     </h4>
+
                 </div>
             <div id="col{{$post->id}}" class="panel-collapse collapse">
                 <div class="panel-body form-group-row">
