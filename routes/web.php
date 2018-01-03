@@ -17,8 +17,6 @@ Route::get('/', function () {
 //auth
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
-//index
 
 //middleware auth
 Route::group(['middleware' => ['auth']], function() {
@@ -36,7 +34,7 @@ Route::delete('/post/{post}/delete', 'PostController@destroy')->name('post.destr
 //detail selengkapnya
 Route::get('/post/{post}', 'PostController@show')->name('post.show');
 //post komentar
-Route::post('/post/{post}/comment', 'PostCommentController@store')->name('post.comment.store');
+Route::post('/post/{post}', 'PostCommentController@store')->name('post.comment.store');
 
 
 });

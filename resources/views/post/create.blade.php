@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Cobain Bikin Artikel Baru</div>
                 <div class="panel-body">
-<form action="{{ route('post.store')}}" method="post">
+<form action="{{ route('post.store')}}" method="post" accept="image/*" enctype="multipart/form-data">
 {{csrf_field()}}
         <div class="form-group has-feedback{{$errors->has('title') ? 'has error' : ''}}">
             <label for="">Title</label>
@@ -36,10 +36,10 @@
             </span>
             @endif
         </div>
-
         <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="save">
-        </div>
+        <input type="file" name="foto" class="form-control" value="foto" id="foto" style="height:40px;padding-bottom:45px">
+</div>
+            <input type="submit" class="btn btn-primary" value="save" >
     </form>
                 </div>
             </div>

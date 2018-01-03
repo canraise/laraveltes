@@ -29,20 +29,29 @@ class PostController extends Controller
         return view('post.create',compact('categories'));
     }
     //fungsi  nyimpen ke database
-    public function store()
+    public function store(Request $request)
     {
         # isinya
         $this->validate(request(),[
             'title'=>'required|min:3',
             'content'=>'required|min:10',
-        ]);        
-        Post::create([
-            'title'=>request('title'),
-            'slug'=>str_slug(request('title')),
-            'content'=>request('content'),
-            'category_id'=>request('category_id'),
-            'user_id'=>str_slug(request('user_id')),
+             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+$path='images/';
+
+$foto=$request->file('foto');
+$filename=str_random(6).'_'.$foto->getClientOriginalName();
+$foto->move($path,$filename);
+
+$data = new Post;
+$data->foto=$path.$filename;
+$data->user_id=$request->input('user_id');
+$data->title=$request->input('title');
+$data->content=$request->input('content');
+$data->category_id=$request->input('category_id');
+$data->slug=$request->input(str_slug('title'));
+$data->save();
+    
         return redirect()->route('post.index')->withInfo('Artikel berjudul '.request('title').' berhasil ditambahkan');        
     }
     //fungsi edit
@@ -55,15 +64,31 @@ class PostController extends Controller
     }
 
     //fungsi update
-    public function update(Post $post){
-        $post->update([
-            'title'=>request('title'),
-            'category_id'=>request('category_id'),
-            'content'=>request('content'),
+    // public function update(Post $post){
+    //     $post->update([
+    //         'title'=>request('title'),
+    //         'category_id'=>request('category_id'),
+    //         'content'=>request('content'),
+    //         'foto'=>request('foto'),
 
-        ]);
-        return redirect()->route('post.index')->withSuccess('Artikel '.request('title').' berhasil diedit');        
-    }
+    //     ]);
+    //     return redirect()->route('post.index')->withSuccess('Artikel '.request('title').' berhasil diedit');        
+    // }
+
+
+    //fungsi update2
+    public function update(Request $request, $id){
+$path='images/';
+
+$foto=$request->file('foto');
+$filename=str_random(6).'_'.$foto->getClientOriginalName();
+
+Post::find($id)->where($request->all());
+
+    $foto->move($path,$filename);
+        return redirect()->route('post.index');        
+        
+}
 
 public function destroy(Post $post){
     $post->delete();
@@ -76,6 +101,7 @@ public function destroy(Post $post){
         return view('post.show',compact('post'));
 
     }
+
 
 //endline
 }

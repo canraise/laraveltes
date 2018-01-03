@@ -101,5 +101,6 @@
         @yield('footer')
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 </body>
 </html>
